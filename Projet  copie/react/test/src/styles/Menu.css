@@ -1,0 +1,318 @@
+/* Conteneur principal du menu */
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* S'assurer que le conteneur prend la hauteur de la vue */
+}
+
+.main-content {
+    flex: 1; /* S'assurer que la section de contenu prend tout l'espace restant */
+    display: flex;
+}
+
+
+/* Styles pour l'en-tête du menu */
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #141f3e;
+    color: white;
+}
+
+/* Styles pour le titre de l'en-tête */
+.top-menu-left h1 {
+    margin: 0;
+}
+
+/* Styles pour la partie droite de l'en-tête */
+.top-menu-right {
+    display: flex;
+}
+
+/* Styles pour les éléments du menu en haut */
+.menu-item {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+/* Effet de survol pour les éléments du menu en haut */
+.menu-item:hover {
+    text-decoration: underline;
+}
+
+/* Styles pour la section principale de contenu */
+.main-content {
+    display: flex;
+    flex: 1;
+}
+
+/* Styles pour la barre de navigation latérale */
+.side-navbar {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles pour les listes de la barre de navigation */
+.side-navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Styles pour les éléments de la liste */
+.side-navbar li {
+    margin: 10px 0;
+}
+
+/* Styles généraux pour les liens dans la barre de navigation */
+.side-navbar a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Effet de survol général pour tous les liens */
+.side-navbar a:hover {
+    text-decoration: underline;
+    background-color: #e9ecef;
+}
+
+.side-navbar a.demandes-hover:hover,
+.side-navbar a.crud:hover,
+.side-navbar a.dashboard:hover,
+.side-navbar a.marcher-hover:hover,
+.side-navbar a.rendezvous-hover:hover,
+.side-navbar a.constatation-hover:hover {
+    background-color:  #112c79; /* Rouge pour les liens spécifiques */
+    color: white; /* Texte en blanc pour contraster avec le rouge */
+    padding: 10px; /* Padding pour ajouter de l'espace autour du texte */
+    border-radius: 4px; /* Coins arrondis pour les liens */
+    display: block; /* Assure que le padding affecte l'élément entier */
+}
+
+/* Styles pour la section de contenu */
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* Styles pour le tableau */
+.table-container {
+    margin-top: 20px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Styles pour l'en-tête de la section de contenu */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Styles pour le bouton "Insérer véhicule" */
+.insert-vehicle-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.insert-vehicle-button:hover {
+    background-color: #218838;
+}
+
+/* Styles pour le conteneur du formulaire */
+.form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Styles pour les titres du formulaire */
+.form-container h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Styles pour les étiquettes */
+.form-container label {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+/* Styles pour les champs de saisie */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="file"],
+
+
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Styles pour les boutons */
+.form-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Ajout d'un focus pour les éléments du formulaire */
+.form-container input[type="text"]:focus,
+.form-container input[type="number"]:focus,
+.form-container input[type="file"]:focus,
+.form-container select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Amélioration des styles des éléments select */
+.form-container select {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+/* Styles pour les icônes d'action dans le tableau */
+.action-icon {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.validate-icon {
+    color: #28a745; /* Vert pour valider */
+}
+
+.reject-icon {
+    color: #dc3545; /* Rouge pour rejeter */
+}
+
+/* Effets de survol pour les icônes */
+.action-icon:hover {
+    color: #0056b3;
+}
+
+/* Styles pour le sous-menu */
+.sub-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8f9fa;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 1;
+    width: 200px; /* Ajuster la largeur si nécessaire */
+}
+
+.sub-menu-item {
+    padding: 10px;
+    color: #007bff;
+    text-decoration: none;
+    display: block;
+}
+
+.sub-menu-item:hover {
+    background-color: #e9ecef;
+}
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    margin: 20px;
+}
+
+.menu-button {
+    background-color: #4CAF50; /* Vert */
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.menu-button:hover {
+    background-color: #45a049; /* Vert plus clair */
+    transform: scale(1.05);
+}
+
+.menu-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-button a:visited {
+    color: white;
+}
+
