@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Top from '../TopMenu';
 import Nav from '../Nav';
+import Bouton from '../Bouton';
 import '../../styles/Menu.css';
 import '../../styles/Form.css';
 import axios from 'axios';
@@ -45,6 +46,7 @@ function MarqueVoiture() {
             <div className="main-content">
                 <Nav />
                 <div className="content">
+                <Bouton />
                     <div className="form-container">
                         <h2>Ajouter Marque de Voiture</h2>
                         <form onSubmit={ajouterMarque}>

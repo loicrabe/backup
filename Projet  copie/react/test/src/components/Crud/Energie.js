@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';import Top from '../TopMenu';
 import Nav from '../Nav';
+import Bouton from '../Bouton';
 import '../../styles/Menu.css';
 import '../../styles/Form.css';
+
 
 function Energie() {
 
@@ -46,6 +48,7 @@ function Energie() {
             <div className="main-content">
                 <Nav />
                 <div className="content">
+                <Bouton />
                     <div className="form-container">
                         <h2>Ajouter Énergie</h2>
                         <form onSubmit={energie}>

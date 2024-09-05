@@ -25,7 +25,10 @@ function Login() {
               'content-Type': 'application/json',
             },
           });
-          console.log('Verifier', response.data);
+          console.log('Verifier', response.data.data);
+          const token=response.data.data.id_utilisateur;
+          console.log(token);
+          localStorage.setItem('token' , token);
           navigate('/menu');
         } catch (error) {
           console.error('Erreur de Verification', error);

@@ -21,21 +21,10 @@ function Bouton() {
                         <button className="menu-button"><Link to="/energie">Energie</Link></button>
                         <button className="menu-button"><Link to="/marque">Marque</Link></button>
                         <button className="menu-button"><Link to="/model">Modèle</Link></button>
-                        <button className="menu-button"><Link to="/voiture">Voiture</Link></button>
                         <button className="menu-button"><Link to="/role">Rôle</Link></button>
-                        <button className="menu-button"><Link to="/personnel">Personnel</Link></button>
-                        <button className="menu-button"><Link to="/utilisateur">Utilisateur</Link></button>
-                        <button className="menu-button"><Link to="/kilometrage">Kilométrage</Link></button>
                         <button className="menu-button"><Link to="/maintenance">Maintenance</Link></button>
                         <button className="menu-button"><Link to="/action">Action</Link></button>
-                        <button className="menu-button"><Link to="/demande-maintenance">Demande Maintenance</Link></button>
-                        <button className="menu-button"><Link to="/pv">PV</Link></button>
-                        <button className="menu-button"><Link to="/facture">Facture</Link></button>
-                        <button className="menu-button"><Link to="/recu">Reçu</Link></button>
-                        <button className="menu-button"><Link to="/reparation-voiture">Réparation Voiture</Link></button>
-                        <button className="menu-button"><Link to="/voiture-sur-cal">Voiture sur Cal</Link></button>
-                        <button className="menu-button"><Link to="/demande-pret-voiture">Demande Prêt Voiture</Link></button>
-                    </div>
+                      </div>
                 </div>
     );
 }

@@ -21,6 +21,7 @@ import Kilometrage from './components/Crud/Kilometrage';
 import Maintenance from './components/Crud/Maintenance';
 import Action from './components/Crud/Action';
 import DemandeMaintenance from './components/Crud/DemandeMaintenance';
+import Entretien from './components/Entretien';
 import PV from './components/Crud/PV';
 import Facture from './components/Crud/Facture';
 import Recu from './components/Crud/Recu';
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/maintenance" element={<Maintenance />} />
                     <Route path="/action" element={<Action />} />
                     <Route path="/demande-maintenance" element={<DemandeMaintenance />} />
+                    <Route path="/demande-entretien" element={<Entretien />} />
                     <Route path="/pv" element={<PV />} />
                     <Route path="/facture" element={<Facture />} />
                     <Route path="/recu" element={<Recu />} />

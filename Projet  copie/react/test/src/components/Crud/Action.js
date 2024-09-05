@@ -4,6 +4,7 @@ import Top from '../TopMenu';
 import Nav from '../Nav';
 import '../../styles/Menu.css';
 import '../../styles/Form.css';
+import Bouton from '../Bouton';
 
 function Action() {
 
@@ -34,6 +35,7 @@ function Action() {
             <div className="main-content">
                 <Nav />
                 <div className="content">
+                <Bouton />
                     <div className="form-container">
                         <h2>Ajouter Action</h2>
                         <form onSubmit={Action}>
