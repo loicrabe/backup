@@ -10,12 +10,13 @@ function Entretien() {
     const user = localStorage.getItem('token');
     console.log(user);
 
-    const [modele, setModele] = useState("");  
-    const [data, setData] = useState('');
-    const [remarqueData, setRemarqueData] = useState('');
-    const [entretienData, setEntretienData] = useState([]);
-    const [voitureData, setVoitureData] = useState([]);
+    const [data, setData] = useState('');  // ID de la voiture
+    const [remarqueData, setRemarqueData] = useState('');  // Remarque sur la maintenance
+    const [entretienData, setEntretienData] = useState([]);  // Données d'entretien (diagnostics)
+    const [voitureData, setVoitureData] = useState([]);  // Données de voiture
+    const [selectedItems, setSelectedItems] = useState([]);  // Éléments sélectionnés (diagnostics)
 
+    // Fonction pour insérer une demande de maintenance
     const insert_maintenance = async (event) => {
         event.preventDefault();
         console.log(data, remarqueData, user);
@@ -24,15 +25,16 @@ function Entretien() {
                 `http://localhost:8080/demande_maintenence/insertion_demande_maintenence`,
                 { id_voiture: data, remarque: remarqueData, id_utilisateur: user },
                 {
-                    headers: { 'content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json' },
                 }
             );
             console.log('Insertion réussie:', response.data);
         } catch (error) {
-            console.error('Erreur de Verification', error);
+            console.error('Erreur de vérification', error);
         }
     };
 
+    // Fonction pour récupérer toutes les voitures
     const selectAll_Voiture = async () => {
         try {
             const response = await axios.get('http://localhost:8080/voiture/selectAll_voiture');
@@ -42,23 +44,45 @@ function Entretien() {
         }
     };
 
-    const selectAll_Entretien = async () => {
+    // Fonction pour récupérer les diagnostics
+    const selectAll_Diagnostic = async () => {
         try {
             const response = await axios.get('http://localhost:8080/Action/selectAll_Action_byMaintence/1');
             setEntretienData(response.data.data);
-            console.log(response.data.data); // Assurez-vous que les données sont bien reçues
+            console.log(response.data.data); // Vérifier si les données sont correctement reçues
         } catch (error) {
             console.error('Erreur de récupération des données d\'entretien', error);
         }
     };
-    
-    useEffect(() => {
-        selectAll_Entretien();
-    }, []);
-    
-    
 
+    // Fonction pour gérer les changements de case à cocher
+    const handleCheckboxChange = (event) => {
+        const { value, checked } = event.target;  // Récupérer la valeur de l'ID et l'état de la case
+        setSelectedItems((prevState) =>
+            checked 
+            ? [...prevState, value]  // Ajouter l'ID si coché
+            : prevState.filter((item) => item !== value)  // Retirer l'ID si décoché
+        );
+    };
+
+    // Fonction pour soumettre les diagnostics sélectionnés
+    const handleSubmit = async () => {
+        try {
+            const datas = selectedItems.map(item => ({
+                id_demande_maintenence_valider: item,  // ou la valeur appropriée
+                id_action: item  // Ajuster selon les besoins
+            }));
+
+            const response = await axios.post('http://localhost:8080/insertion_Liste_action_demande_maintenence_valider', datas);
+            console.log('Réponse de l\'API:', response.data);
+        } catch (error) {
+            console.error('Erreur lors de l\'appel à l\'API:', error);
+        }
+    };
+
+    // Charger les données des voitures et des diagnostics au montage du composant
     useEffect(() => {
+        selectAll_Diagnostic();
         selectAll_Voiture();
     }, []);
 
@@ -75,7 +99,7 @@ function Entretien() {
                                 <label>ID Voiture:</label><br />
                                 <select 
                                     value={data}
-                                    onChange={(e) => setData(e.target.value)}  // Update the state 'data'
+                                    onChange={(e) => setData(e.target.value)}  
                                     required
                                 >
                                     <option value="">Choisir un Modèle</option>
@@ -103,19 +127,23 @@ function Entretien() {
                         
                         <div className="checkbox-container">
                             <div className="checkbox-group">
-                                <div className="checkbox-group">
-                                    <h3>Demande de Diagnostic</h3>
-                                    {entretienData
-                                        .filter(action => action.type === 'Diagnostic')
-                                        .map((action) => (
-                                            <label key={action.id_action}>
-                                                <input type="checkbox" /> {action.nom_action}
-                                            </label>
-                                        ))}
-                                </div>
+                                <h3>Demande de Diagnostic</h3>
+                                {entretienData
+                                    .filter(action => action.type === 'Diagnostic')
+                                    .map((action) => (
+                                        <label key={action.id_action}>
+                                            <input
+                                                type="checkbox"
+                                                value={action.id_action}  // L'ID de l'action
+                                                checked={selectedItems.includes(action.id_action)}  // Vérifie si l'élément est sélectionné
+                                                onChange={handleCheckboxChange}  // Gère la case à cocher
+                                            /> 
+                                            {action.nom_action}
+                                        </label>
+                                    ))}
                             </div>
 
-                            <div className="checkbox-group">
+                        <div className="checkbox-group">
                                 <h3>Demande de Reparation</h3>
                                 <label>
                                     <input type="checkbox" /> Pièce 1
@@ -141,7 +169,8 @@ function Entretien() {
                                 </label>
                             </div>
                         </div><br />
-                        <button className="insert-button">Valider</button>
+                        
+                        <button className="insert-button" onClick={handleSubmit}>Valider</button>
                     </div>
                 </div>
             </div>

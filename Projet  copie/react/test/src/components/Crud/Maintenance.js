@@ -29,7 +29,7 @@ function Maintenance() {
 
     const selectAll_Maintenance = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/Fonction/selectAll_Fonction');
+            const response = await axios.get('http://localhost:8080/Maintenance/selectAll_Maintenance');
             console.log('Données récupérées:', response.data);  // Pour vérifier la structure des données
             setMaintenanceData(response.data.data);
         } catch (error) {
@@ -75,7 +75,7 @@ function Maintenance() {
                                 {Array.isArray(maintenanceData) && maintenanceData.length > 0 ? (
                                     maintenanceData.map(maintenance => (
                                         <tr key={maintenance.id_maintenance}>
-                                            <td>{maintenance.nom_maintenance}</td>
+                                            <td>{maintenance.nom_maintenanca}</td>
                                         </tr>
                                     ))
                                 ) : (
