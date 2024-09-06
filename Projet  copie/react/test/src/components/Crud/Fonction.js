@@ -65,7 +65,7 @@ function Fonction() {
                     </div>
                     <div className="table-container">
                         <h3>Liste des Fonctions</h3>
-                        <table class="table">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Nom Fonction</th>

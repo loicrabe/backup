@@ -53,7 +53,6 @@ function TypeLieu() {
                 <Nav />
                 <div className="content">
                     <Bouton />
-                    <div className="content-header">
                         <div className="form-container">
                             <h2>Ajouter Type de Lieu</h2>
                             <form onSubmit={lieu}>
@@ -67,6 +66,7 @@ function TypeLieu() {
                                 />
                                 <button type="submit">Valider</button>
                             </form>
+                        </div>
                             <div className="table-container">
                                 <h3>Listes des types de lieu</h3>
                                 <table>
@@ -90,11 +90,9 @@ function TypeLieu() {
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 

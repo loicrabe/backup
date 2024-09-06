@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';import Top from '../TopMenu';
+import axios from 'axios';
+import Top from '../TopMenu';
 import Nav from '../Nav';
 import Bouton from '../Bouton';
 import '../../styles/Menu.css';

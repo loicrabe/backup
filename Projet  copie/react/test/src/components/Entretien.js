@@ -8,29 +8,84 @@ import '../styles/Crud.css';
 
 function Entretien() {
     const user = localStorage.getItem('token');
-    console.log(user);
 
     const [data, setData] = useState('');  // ID de la voiture
     const [remarqueData, setRemarqueData] = useState('');  // Remarque sur la maintenance
-    const [entretienData, setEntretienData] = useState([]);  // Données d'entretien (diagnostics)
-    const [voitureData, setVoitureData] = useState([]);  // Données de voiture
-    const [selectedItems, setSelectedItems] = useState([]);  // Éléments sélectionnés (diagnostics)
+    const [maxIdMaintenance, setMaxIdMaintenance] = useState('');  // Max ID Maintenance
+    const [diagnosticData, setDiagnosticData] = useState([]);  // Données de diagnostic
+    const [entretienData, setEntretienData] = useState([]);  // Données d'entretien
+    const [reparationData, setReparationData] = useState([]);  // Données de réparation
+    const [voitureData, setVoitureData] = useState([]);  // Données des voitures
+    const [selectedItems, setSelectedItems] = useState([]);  // Éléments sélectionnés (diagnostics, réparations, etc.)
 
     // Fonction pour insérer une demande de maintenance
-    const insert_maintenance = async (event) => {
-        event.preventDefault();
-        console.log(data, remarqueData, user);
+    const insert_maintenance = async () => {
+        console.log("id_Voiture : ",data,"Remarque : ",remarqueData,"user : ", user);
         try {
             const response = await axios.post(
-                `http://localhost:8080/demande_maintenence/insertion_demande_maintenence`,
+                'http://localhost:8080/demande_maintenence/insertion_demande_maintenence',
                 { id_voiture: data, remarque: remarqueData, id_utilisateur: user },
                 {
                     headers: { 'Content-Type': 'application/json' },
                 }
             );
-            console.log('Insertion réussie:', response.data);
+            console.log('Insertion de la maintenance réussie:', response.data);
+            return response.data;  // Retourner la réponse pour permettre l'utilisation ultérieure
         } catch (error) {
-            console.error('Erreur de vérification', error);
+            console.error('Erreur d\'insertion de la maintenance', error);
+            throw error;
+        }
+    };
+
+    // Fonction pour insérer la liste des actions de maintenance
+    const insert_liste_maintenance = async () => {
+        const formattedItems = selectedItems.map(item => ({
+            id_demande_maintenence: maxIdMaintenance +1,
+            id_action: item
+        }));
+
+        console.log("maintenance : ", formattedItems);
+        try {
+            const response = await axios.post(
+                'http://localhost:8080/Liste_action_demande_maintenence/insertion_Liste_action_demande_maintenence_',
+                formattedItems,
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                }
+            );
+            console.log('Insertion de la liste d\'actions réussie:', response.data);
+        } catch (error) {
+            console.error('Erreur d\'insertion de la liste d\'actions', error);
+        }
+    };
+
+    // Fonction pour insérer les deux actions ensemble
+    const handleInsertAll = async (event) => {
+        event.preventDefault();
+        
+        try {
+            // Insérer la demande de maintenance
+            await insert_maintenance();
+            
+            
+            
+            // Insérer la liste des actions de maintenance
+            await insert_liste_maintenance();
+            
+            console.log('Les deux insertions ont été réussies');
+        } catch (error) {
+            console.error('Erreur lors de l\'insertion multiple', error);
+        }
+    };
+
+    // Fonction pour mettre à jour les éléments sélectionnés
+    const handleCheckboxChange = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setSelectedItems((prevItems) => [...prevItems, value]);
+        } else {
+            setSelectedItems((prevItems) => prevItems.filter((item) => item !== value));
         }
     };
 
@@ -44,46 +99,56 @@ function Entretien() {
         }
     };
 
+    const selectMax_Demande = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/demande_maintenence/selectMAx_demande_maintenence');
+            const maxId = response.data.data.id_demande_maintenence;
+            setMaxIdMaintenance(maxId);
+            console.log(maxId);
+        } catch (error) {
+            console.error('Erreur de récupération du Max ID de la demande', error);
+        }
+    };
+    
+
     // Fonction pour récupérer les diagnostics
     const selectAll_Diagnostic = async () => {
         try {
             const response = await axios.get('http://localhost:8080/Action/selectAll_Action_byMaintence/1');
-            setEntretienData(response.data.data);
-            console.log(response.data.data); // Vérifier si les données sont correctement reçues
+            setDiagnosticData(response.data.data);
         } catch (error) {
-            console.error('Erreur de récupération des données d\'entretien', error);
+            console.error('Erreur de récupération des diagnostics', error);
         }
     };
 
-    // Fonction pour gérer les changements de case à cocher
-    const handleCheckboxChange = (event) => {
-        const { value, checked } = event.target;  // Récupérer la valeur de l'ID et l'état de la case
-        setSelectedItems((prevState) =>
-            checked 
-            ? [...prevState, value]  // Ajouter l'ID si coché
-            : prevState.filter((item) => item !== value)  // Retirer l'ID si décoché
-        );
-    };
-
-    // Fonction pour soumettre les diagnostics sélectionnés
-    const handleSubmit = async () => {
+    // Fonction pour récupérer les entretiens
+    const selectAll_Entretien = async () => {
         try {
-            const datas = selectedItems.map(item => ({
-                id_demande_maintenence_valider: item,  // ou la valeur appropriée
-                id_action: item  // Ajuster selon les besoins
-            }));
-
-            const response = await axios.post('http://localhost:8080/insertion_Liste_action_demande_maintenence_valider', datas);
-            console.log('Réponse de l\'API:', response.data);
+            const response = await axios.get('http://localhost:8080/Action/selectAll_Action_byMaintence/2');
+            setEntretienData(response.data.data);
         } catch (error) {
-            console.error('Erreur lors de l\'appel à l\'API:', error);
+            console.error('Erreur de récupération des entretiens', error);
         }
     };
 
-    // Charger les données des voitures et des diagnostics au montage du composant
+    // Fonction pour récupérer les réparations
+    const selectAll_Reparation = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/Action/selectAll_Action_byMaintence/3');
+            setReparationData(response.data.data);
+        } catch (error) {
+            console.error('Erreur de récupération des réparations', error);
+        }
+    };
+
+    // Charger les données au montage du composant
     useEffect(() => {
         selectAll_Diagnostic();
+        selectAll_Entretien();
+        selectAll_Reparation();
         selectAll_Voiture();
+        // Récupérer le Max ID Demande de Maintenance
+        selectMax_Demande();
     }, []);
 
     return (
@@ -94,7 +159,7 @@ function Entretien() {
                 <div className="content">
                     <div className="form-inline-container">
                         <h2>Envoyer une demande d'entretien</h2><br />
-                        <form className="inline-form" onSubmit={insert_maintenance}>
+                        <form className="inline-form" onSubmit={handleInsertAll}>
                             <div className="form-group">
                                 <label>ID Voiture:</label><br />
                                 <select 
@@ -128,49 +193,77 @@ function Entretien() {
                         <div className="checkbox-container">
                             <div className="checkbox-group">
                                 <h3>Demande de Diagnostic</h3>
-                                {entretienData
-                                    .filter(action => action.type === 'Diagnostic')
-                                    .map((action) => (
-                                        <label key={action.id_action}>
-                                            <input
-                                                type="checkbox"
-                                                value={action.id_action}  // L'ID de l'action
-                                                checked={selectedItems.includes(action.id_action)}  // Vérifie si l'élément est sélectionné
-                                                onChange={handleCheckboxChange}  // Gère la case à cocher
-                                            /> 
-                                            {action.nom_action}
-                                        </label>
-                                    ))}
-                            </div>
-
-                        <div className="checkbox-group">
-                                <h3>Demande de Reparation</h3>
-                                <label>
-                                    <input type="checkbox" /> Pièce 1
-                                </label><br />
-                                <label>
-                                    <input type="checkbox" /> Pièce 2
-                                </label><br />
-                                <label>
-                                    <input type="checkbox" /> Pièce 3
-                                </label>
+                                <div>
+                                    {Array.isArray(diagnosticData) && diagnosticData.length > 0 ? (
+                                        diagnosticData.map(fonction => (
+                                            <div key={fonction.id_action}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id={`diagnostic-${fonction.id_action}`} 
+                                                    value={fonction.id_action}
+                                                    onChange={handleCheckboxChange}
+                                                />
+                                                <label htmlFor={`diagnostic-${fonction.id_action}`}>
+                                                    {fonction.nom_action}
+                                                </label>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>Aucune donnée disponible</p>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="checkbox-group">
-                                <h3>Demande de Diagnostic</h3>
-                                <label>
-                                    <input type="checkbox" /> Service 1
-                                </label><br />
-                                <label>
-                                    <input type="checkbox" /> Service 2
-                                </label><br />
-                                <label>
-                                    <input type="checkbox" /> Service 3
-                                </label>
+                                <h3>Demande de Réparation</h3>
+                                <div>
+                                    {Array.isArray(entretienData) && entretienData.length > 0 ? (
+                                        entretienData.map(fonction => (
+                                            <div key={fonction.id_action}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id={`entretien-${fonction.id_action}`} 
+                                                    value={fonction.id_action}
+                                                    onChange={handleCheckboxChange}
+                                                />
+                                                <label htmlFor={`entretien-${fonction.id_action}`}>
+                                                    {fonction.nom_action}
+                                                </label>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>Aucune donnée disponible</p>
+                                    )}
+                                </div>
                             </div>
-                        </div><br />
-                        
-                        <button className="insert-button" onClick={handleSubmit}>Valider</button>
+
+                            <div className="checkbox-group">
+                                <h3>Demande de Maintenance</h3>
+                                <div>
+                                    {Array.isArray(reparationData) && reparationData.length > 0 ? (
+                                        reparationData.map(fonction => (
+                                            <div key={fonction.id_action}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id={`reparation-${fonction.id_action}`} 
+                                                    value={fonction.id_action}
+                                                    onChange={handleCheckboxChange}
+                                                />
+                                                <label htmlFor={`reparation-${fonction.id_action}`}>
+                                                    {fonction.nom_action}
+                                                </label>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>Aucune donnée disponible</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <button className="insert-button" onClick={handleInsertAll}>Valider</button>
+                        </div>
                     </div>
                 </div>
             </div>

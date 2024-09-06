@@ -50,7 +50,6 @@ function Service() {
                 <Nav />
                 <div className="content">
                 <Bouton />
-                    <div className="content-header">
                         <div className="form-container">
                             <h2>Ajouter Service</h2>
                             <form onSubmit={service}>
@@ -64,6 +63,7 @@ function Service() {
                                 />
                                 <button type="submit">Valider</button>
                             </form>
+                        </div>
                             <div className="table-container">
                                 <h3>Listes des Services</h3>
                                 <table >
@@ -87,11 +87,9 @@ function Service() {
                             </tbody>
                                 </table>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 

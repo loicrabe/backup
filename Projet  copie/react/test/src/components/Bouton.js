@@ -22,7 +22,7 @@ function Bouton() {
                         <button className="menu-button"><Link to="/marque">Marque</Link></button>
                         <button className="menu-button"><Link to="/model">Modèle</Link></button>
                         <button className="menu-button"><Link to="/role">Rôle</Link></button>
-                        <button className="menu-button"><Link to="/maintenance">Maintenance</Link></button>
+                        <button className="menu-button"><Link to="/maintenance">Entretien</Link></button>
                         <button className="menu-button"><Link to="/action">Action</Link></button>
                       </div>
                 </div>

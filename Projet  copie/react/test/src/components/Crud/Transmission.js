@@ -51,7 +51,6 @@ function Transmission() {
                 <Nav />
                 <div className="content">
                 <Bouton />
-                    <div className="content-header">
                         <div className="form-container">
                             <h2>Ajouter Transmission</h2>
                             <form onSubmit={transmission}> 
@@ -65,6 +64,8 @@ function Transmission() {
                                 />
                                 <button type="submit">Valider</button>
                             </form>
+                        </div>
+
                             <div className="table-container">
                                 <h3>Listes des transmision</h3>
                                 <table>
@@ -88,11 +89,9 @@ function Transmission() {
                             </tbody>
                                 </table>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 

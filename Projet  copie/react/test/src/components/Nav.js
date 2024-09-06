@@ -17,8 +17,8 @@ function Nav() {
                 <li><Link to="/crud" className="marcher-hover" >CRUD</Link></li>
                 <li><Link to="/demande-entretien" className="marcher-hover" >Demande Entretien</Link></li>
                 {/* <li><Link to="/fonction" className="crud">Fonction</Link></li> */}
-                <li><a href="#" className="dashboard" onClick={() => setShowSubMenu(false)}>Dashboard</a></li>
                 <li><Link to="/demande-en-attente" className="demandes-hover">Demande en attentes</Link></li>
+                <li><a href="#" className="dashboard" onClick={() => setShowSubMenu(false)}>Dashboard</a></li>
                 <li><a href="#" className="marcher-hover" onClick={() => setShowSubMenu(false)}>Marcher</a></li>
                 <li><a href="#" className="rendezvous-hover" onClick={() => setShowSubMenu(false)}>Rendez-vous Prise en Charge</a></li>
             </ul>
