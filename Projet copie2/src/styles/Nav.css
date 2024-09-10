@@ -1,0 +1,66 @@
+/* Styles pour la barre de navigation latérale */
+.side-navbar {
+    width: 16%;
+    background-color: #141f3e;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles pour les listes de la barre de navigation */
+.side-navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Styles pour les éléments de la liste */
+.side-navbar li {
+    margin: 10px 0;
+}
+
+/* Styles généraux pour les liens dans la barre de navigation */
+.side-navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Effet de survol général pour tous les liens */
+.side-navbar a:hover {
+    text-decoration: underline;
+    background-color: #e9ecef;
+}
+
+/* Style spécifique pour le lien "Dashboard" */
+.side-navbar a.dashboard {
+    background-color: #00bfff; /* Fond bleu ciel pour "Dashboard" */
+    color: white; /* Texte en blanc */
+}
+
+/* Effet de survol pour "Dashboard" */
+.side-navbar a.dashboard:hover {
+    background-color: #009acd; /* Bleu un peu plus foncé au survol */
+}
+
+/* Styles pour les autres éléments de la liste au survol */
+.side-navbar a.demandes-hover:hover,
+.side-navbar a.crud:hover,
+.side-navbar a.marcher-hover:hover,
+.side-navbar a.rendezvous-hover:hover,
+.side-navbar a.constatation-hover:hover {
+    background-color:  #ff0000; /* Rouge pour les liens spécifiques */
+    color: white; /* Texte en blanc pour contraster avec le rouge */
+    padding: 10px; /* Padding pour ajouter de l'espace autour du texte */
+    border-radius: 4px; /* Coins arrondis pour les liens */
+    display: block; /* Assure que le padding affecte l'élément entier */
+}
+
+/* Styles pour l'élément actif */
+.active-link {
+    background-color:  #ff0000; /* La couleur de fond du lien actif */
+    color: white; /* Le texte en blanc pour l'élément actif */
+    padding: 10px;
+    border-radius: 4px;
+}
